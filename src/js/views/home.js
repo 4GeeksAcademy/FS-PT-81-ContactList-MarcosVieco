@@ -17,7 +17,7 @@ export const Home = () => {
 				{store.contacts?.map(el=>(
 					<Card 
 					key={el.id}
-					id={el.id}
+					theId={el.id}
 					name={el.name}
 					email={el.email}
 					phone={el.phone}

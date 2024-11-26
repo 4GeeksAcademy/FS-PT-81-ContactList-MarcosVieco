@@ -1,26 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
 
 
 export const Contacts = () => {
+
+// importamos el uso de flux
 	const { store, actions } = useContext(Context);
+
+// creamos un estado para almacenar los datos del contacto 
 	const [contactData, setContactData] = useState({name: '', email: '', phone: '', address: ''})
 
+// variable para desestructurar name y value de cada input y que cada input pueda agregar el valor introducido a cada parte del objeto creado antes 
 	const handleChange = e => {
 		const {name, value} = e.target;
 			setContactData({...contactData, [name]: value})
 		}
 
+// handlesubmit para evitar el autorefresh de la pagina, enviar los datos de los input a la API, vaciar el input despues de enviarlo y volver a la pagina de inicio
 	const handleSubmit = e => {
 		e.preventDefault();
 		actions.createContact(contactData)
 		setContactData({name: '', email: '', phone: '', address: ''})
+		navigate('/')
 	}
 	
-
+	const navigate = useNavigate()
+	
 	return (
 		<div className="container">
 						<form className="d-flex flex-column gap-2" onSubmit={handleSubmit}>

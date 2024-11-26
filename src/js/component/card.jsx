@@ -1,10 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "../../styles/card.css";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router";
+
 
 export const Card = (props) => {
-    const {store, actions} = useContext(Context)
+    const {store, actions} = useContext(Context);
+    const navigate = useNavigate()
+
+    const handleEdit = () => {
+        actions.selectToEdit(store.contacts.filter(el=>el.id === props.theId)[0])
+        navigate("/edit/"+props.theId)
+    }
+
     return (
+        <>
         <div className="card">
             <div className="d-flex justify-content-between">
                 <div className="leftSide d-flex">
@@ -17,10 +27,11 @@ export const Card = (props) => {
                     </div>
                 </div>
                 <div className="align-content-center">
-                    <i className="fa-solid fa-pencil me-5"></i>
-                    <i className="fa-solid fa-trash me-5" onClick={()=>actions.deleteContact(props.id)}></i>
+                    <i className="fa-solid fa-pencil me-5" onClick={handleEdit}></i>
+                    <i className="fa-solid fa-trash me-5" onClick={()=>actions.deleteContact(props.theId)}></i>
                 </div>
             </div>
         </div>
+        </>
         )
 }
