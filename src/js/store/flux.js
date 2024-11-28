@@ -28,6 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (!resp.ok) {
 						throw new Error('error creando agenda')
 					}
+					getActions().getContacts()
 				} catch (error) {
 					console.error(error);
 				}
@@ -93,8 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (!resp.ok) {
 						throw new Error('error creando contacts')
 					}
-					const data = await resp.json();
-					console.log(data)
+					getActions().getContacts()
 				} catch (error) {
 					console.error(error);
 				}
